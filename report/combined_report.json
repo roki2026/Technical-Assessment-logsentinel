@@ -1,0 +1,560 @@
+{
+  "generated": "2026-07-14T09:32:32.903288+00:00",
+  "stats": {
+    "files": 2,
+    "lines": 45,
+    "parsed": 44,
+    "malformed": 1
+  },
+  "incidents": [
+    {
+      "category": "SQL Injection",
+      "severity": "high",
+      "title": "SQL injection pattern in request path/query (2 event(s))",
+      "description": "Rule SQLI-001 matched on field \"path\". Sources: 10.0.0.88.",
+      "entities": {
+        "ips": [
+          "10.0.0.88"
+        ],
+        "users": [],
+        "hosts": []
+      },
+      "count": 2,
+      "first_seen": "2025-07-03 10:00:14",
+      "last_seen": "2025-07-03 10:00:16",
+      "evidence": [
+        [
+          "webserver.log",
+          14,
+          "10.0.0.88 - - [03/Jul/2025:10:00:14 +0000] \"GET /search?q=' UNION SELECT * FROM users-- HTTP/1.1\" 200 54"
+        ],
+        [
+          "webserver.log",
+          16,
+          "10.0.0.88 - - [03/Jul/2025:10:00:16 +0000] \"GET /search?q=1; DROP TABLE users-- HTTP/1.1\" 200 54"
+        ]
+      ],
+      "mitre": "T1190",
+      "rule_id": "SQLI-001"
+    },
+    {
+      "category": "Path Traversal",
+      "severity": "high",
+      "title": "Directory traversal attempt (1 event(s))",
+      "description": "Rule TRAV-001 matched on field \"path\". Sources: 203.0.113.5.",
+      "entities": {
+        "ips": [
+          "203.0.113.5"
+        ],
+        "users": [],
+        "hosts": []
+      },
+      "count": 1,
+      "first_seen": "2025-07-03 10:00:12",
+      "last_seen": "2025-07-03 10:00:12",
+      "evidence": [
+        [
+          "webserver.log",
+          12,
+          "203.0.113.5 - - [03/Jul/2025:10:00:12 +0000] \"GET /admin/../../../etc/passwd HTTP/1.1\" 400 0"
+        ]
+      ],
+      "mitre": "T1190",
+      "rule_id": "TRAV-001"
+    },
+    {
+      "category": "Reconnaissance",
+      "severity": "medium",
+      "title": "Probing for sensitive files/endpoints (1 event(s))",
+      "description": "Rule RECON-002 matched on field \"path\". Sources: 172.16.0.20.",
+      "entities": {
+        "ips": [
+          "172.16.0.20"
+        ],
+        "users": [],
+        "hosts": []
+      },
+      "count": 1,
+      "first_seen": "2025-07-03 10:00:19",
+      "last_seen": "2025-07-03 10:00:19",
+      "evidence": [
+        [
+          "webserver.log",
+          23,
+          "172.16.0.20 - - [03/Jul/2025:10:00:19 +0000] \"GET /.env HTTP/1.1\" 404 0"
+        ]
+      ],
+      "mitre": "T1595",
+      "rule_id": "RECON-002"
+    },
+    {
+      "category": "Brute Force Attacks",
+      "severity": "critical",
+      "title": "SSH brute force from 10.0.0.50 SUCCEEDED (4 failures then login as 'admin')",
+      "description": "4 failed SSH authentications followed by an accepted login as 'admin' from the same IP. Treat the account as compromised.",
+      "entities": {
+        "ips": [
+          "10.0.0.50"
+        ],
+        "users": [
+          "admin"
+        ],
+        "hosts": [
+          "server"
+        ]
+      },
+      "count": 5,
+      "first_seen": "2025-07-03 10:00:03",
+      "last_seen": "2025-07-03 10:00:07",
+      "evidence": [
+        [
+          "auth2.log",
+          1,
+          "Jul  3 10:00:03 server sshd[1234]: Failed password for admin from 10.0.0.50 port 52341 ssh2"
+        ],
+        [
+          "auth2.log",
+          2,
+          "Jul  3 10:00:04 server sshd[1234]: Failed password for admin from 10.0.0.50 port 52342 ssh2"
+        ],
+        [
+          "auth2.log",
+          3,
+          "Jul  3 10:00:05 server sshd[1234]: Failed password for admin from 10.0.0.50 port 52343 ssh2"
+        ],
+        [
+          "auth2.log",
+          4,
+          "Jul  3 10:00:06 server sshd[1234]: Failed password for admin from 10.0.0.50 port 52344 ssh2"
+        ],
+        [
+          "auth2.log",
+          5,
+          "Jul  3 10:00:07 server sshd[1234]: Accepted password for admin from 10.0.0.50 port 52345 ssh2"
+        ]
+      ],
+      "mitre": "T1110/T1078",
+      "rule_id": ""
+    },
+    {
+      "category": "Brute Force Attacks",
+      "severity": "critical",
+      "title": "Login brute force from 10.0.0.50 SUCCEEDED (4 failures then a successful login)",
+      "description": "4 failed login POSTs followed by HTTP 200 on the same endpoint ['/login'] \u2014 probable account takeover. Treat the account as compromised.",
+      "entities": {
+        "ips": [
+          "10.0.0.50"
+        ],
+        "users": [],
+        "hosts": []
+      },
+      "count": 5,
+      "first_seen": "2025-07-03 10:00:03",
+      "last_seen": "2025-07-03 10:00:07",
+      "evidence": [
+        [
+          "webserver.log",
+          3,
+          "10.0.0.50 - - [03/Jul/2025:10:00:03 +0000] \"POST /login HTTP/1.1\" 401 54"
+        ],
+        [
+          "webserver.log",
+          4,
+          "10.0.0.50 - - [03/Jul/2025:10:00:04 +0000] \"POST /login HTTP/1.1\" 401 54"
+        ],
+        [
+          "webserver.log",
+          5,
+          "10.0.0.50 - - [03/Jul/2025:10:00:05 +0000] \"POST /login HTTP/1.1\" 401 54"
+        ],
+        [
+          "webserver.log",
+          6,
+          "10.0.0.50 - - [03/Jul/2025:10:00:06 +0000] \"POST /login HTTP/1.1\" 401 54"
+        ],
+        [
+          "webserver.log",
+          7,
+          "10.0.0.50 - - [03/Jul/2025:10:00:07 +0000] \"POST /login HTTP/1.1\" 200 3842"
+        ]
+      ],
+      "mitre": "T1110.001/T1078",
+      "rule_id": ""
+    },
+    {
+      "category": "Reconnaissance",
+      "severity": "medium",
+      "title": "SSH username enumeration from 203.0.113.5 (3 attempts on invalid accounts)",
+      "description": "Login attempts against non-existent users (root, test, ubuntu) \u2014 probing valid usernames, typical of a pre-brute-force sweep.",
+      "entities": {
+        "ips": [
+          "203.0.113.5"
+        ],
+        "users": [
+          "root",
+          "test",
+          "ubuntu"
+        ],
+        "hosts": [
+          "server"
+        ]
+      },
+      "count": 3,
+      "first_seen": "2025-07-03 10:00:09",
+      "last_seen": "2025-07-03 10:00:11",
+      "evidence": [
+        [
+          "auth2.log",
+          6,
+          "Jul  3 10:00:09 server sshd[1235]: Failed password for invalid user test from 203.0.113.5 port 44123 ssh2"
+        ],
+        [
+          "auth2.log",
+          7,
+          "Jul  3 10:00:10 server sshd[1235]: Failed password for invalid user root from 203.0.113.5 port 44124 ssh2"
+        ],
+        [
+          "auth2.log",
+          8,
+          "Jul  3 10:00:11 server sshd[1235]: Failed password for invalid user ubuntu from 203.0.113.5 port 44125 ssh2"
+        ]
+      ],
+      "mitre": "T1589.001",
+      "rule_id": ""
+    },
+    {
+      "category": "Rate-Limit Abuse",
+      "severity": "medium",
+      "title": "Server throttled 10.0.0.99 with HTTP 429 (5 rapid requests to ['/api/users'])",
+      "description": "The application returned 429 Too Many Requests \u2014 automated/scripted activity (e.g. mass account creation or API hammering) confirmed by the server's own rate limiter.",
+      "entities": {
+        "ips": [
+          "10.0.0.99"
+        ],
+        "users": [],
+        "hosts": []
+      },
+      "count": 5,
+      "first_seen": "2025-07-03 10:00:23",
+      "last_seen": "2025-07-03 10:00:24",
+      "evidence": [
+        [
+          "webserver.log",
+          28,
+          "10.0.0.99 - - [03/Jul/2025:10:00:23 +0000] \"POST /api/users HTTP/1.1\" 200 54"
+        ],
+        [
+          "webserver.log",
+          29,
+          "10.0.0.99 - - [03/Jul/2025:10:00:23 +0000] \"POST /api/users HTTP/1.1\" 200 54"
+        ],
+        [
+          "webserver.log",
+          30,
+          "10.0.0.99 - - [03/Jul/2025:10:00:23 +0000] \"POST /api/users HTTP/1.1\" 200 54"
+        ],
+        [
+          "webserver.log",
+          31,
+          "10.0.0.99 - - [03/Jul/2025:10:00:24 +0000] \"POST /api/users HTTP/1.1\" 200 54"
+        ],
+        [
+          "webserver.log",
+          32,
+          "10.0.0.99 - - [03/Jul/2025:10:00:24 +0000] \"POST /api/users HTTP/1.1\" 429 32"
+        ]
+      ],
+      "mitre": "T1498",
+      "rule_id": ""
+    },
+    {
+      "category": "Reconnaissance",
+      "severity": "high",
+      "title": "Vulnerability scan from 203.0.113.5 (4 admin/sensitive endpoints probed)",
+      "description": "Probed sensitive paths: /admin, /admin/, /admin/../../../etc/passwd, /admin/config. Consistent with automated vulnerability/CMS scanning.",
+      "entities": {
+        "ips": [
+          "203.0.113.5"
+        ],
+        "users": [],
+        "hosts": []
+      },
+      "count": 4,
+      "first_seen": "2025-07-03 10:00:09",
+      "last_seen": "2025-07-03 10:00:12",
+      "evidence": [
+        [
+          "webserver.log",
+          9,
+          "203.0.113.5 - - [03/Jul/2025:10:00:09 +0000] \"GET /admin HTTP/1.1\" 403 128"
+        ],
+        [
+          "webserver.log",
+          10,
+          "203.0.113.5 - - [03/Jul/2025:10:00:10 +0000] \"GET /admin/ HTTP/1.1\" 403 128"
+        ],
+        [
+          "webserver.log",
+          11,
+          "203.0.113.5 - - [03/Jul/2025:10:00:11 +0000] \"GET /admin/config HTTP/1.1\" 403 128"
+        ],
+        [
+          "webserver.log",
+          12,
+          "203.0.113.5 - - [03/Jul/2025:10:00:12 +0000] \"GET /admin/../../../etc/passwd HTTP/1.1\" 400 0"
+        ]
+      ],
+      "mitre": "T1595.003",
+      "rule_id": ""
+    },
+    {
+      "category": "Reconnaissance",
+      "severity": "high",
+      "title": "Vulnerability scan from 172.16.0.20 (6 admin/sensitive endpoints probed)",
+      "description": "Probed sensitive paths: /.env, /admin, /administrator, /config.php, /phpmyadmin, /wp-admin. Consistent with automated vulnerability/CMS scanning.",
+      "entities": {
+        "ips": [
+          "172.16.0.20"
+        ],
+        "users": [],
+        "hosts": []
+      },
+      "count": 6,
+      "first_seen": "2025-07-03 10:00:18",
+      "last_seen": "2025-07-03 10:00:19",
+      "evidence": [
+        [
+          "webserver.log",
+          19,
+          "172.16.0.20 - - [03/Jul/2025:10:00:18 +0000] \"GET /admin HTTP/1.1\" 403 128"
+        ],
+        [
+          "webserver.log",
+          20,
+          "172.16.0.20 - - [03/Jul/2025:10:00:18 +0000] \"GET /phpmyadmin HTTP/1.1\" 404 0"
+        ],
+        [
+          "webserver.log",
+          21,
+          "172.16.0.20 - - [03/Jul/2025:10:00:18 +0000] \"GET /wp-admin HTTP/1.1\" 404 0"
+        ],
+        [
+          "webserver.log",
+          22,
+          "172.16.0.20 - - [03/Jul/2025:10:00:18 +0000] \"GET /administrator HTTP/1.1\" 404 0"
+        ],
+        [
+          "webserver.log",
+          23,
+          "172.16.0.20 - - [03/Jul/2025:10:00:19 +0000] \"GET /.env HTTP/1.1\" 404 0"
+        ],
+        [
+          "webserver.log",
+          24,
+          "172.16.0.20 - - [03/Jul/2025:10:00:19 +0000] \"GET /config.php HTTP/1.1\" 404 0"
+        ]
+      ],
+      "mitre": "T1595.003",
+      "rule_id": ""
+    },
+    {
+      "category": "Credential Attacks",
+      "severity": "high",
+      "title": "Sensitive sudo command by 'johndoe': /bin/cat /etc/shadow",
+      "description": "A successful sudo executed a command that reads credentials or alters privilege configuration (e.g. shadow/sudoers/SSH keys). Verify this was authorized.",
+      "entities": {
+        "ips": [],
+        "users": [
+          "johndoe"
+        ],
+        "hosts": [
+          "server"
+        ]
+      },
+      "count": 1,
+      "first_seen": "2025-07-03 10:00:15",
+      "last_seen": "2025-07-03 10:00:15",
+      "evidence": [
+        [
+          "auth2.log",
+          9,
+          "Jul  3 10:00:15 server sudo: johndoe : TTY=pts/0 ; PWD=/home/johndoe ; USER=root ; COMMAND=/bin/cat /etc/shadow"
+        ]
+      ],
+      "mitre": "T1003.008",
+      "rule_id": ""
+    },
+    {
+      "category": "Data Quality",
+      "severity": "info",
+      "title": "1 malformed / unparseable line(s)",
+      "description": "Lines that matched no known format in: webserver.log. Could indicate log tampering, corruption, or an unsupported format.",
+      "entities": {
+        "ips": [],
+        "users": [],
+        "hosts": []
+      },
+      "count": 1,
+      "first_seen": "unknown",
+      "last_seen": "unknown",
+      "evidence": [
+        [
+          "webserver.log",
+          26,
+          "[MALFORMED ENTRY - system restart"
+        ]
+      ],
+      "mitre": "",
+      "rule_id": ""
+    },
+    {
+      "category": "Cross-File Correlation",
+      "severity": "critical",
+      "title": "Multi-stage attack from 203.0.113.5: Reconnaissance \u2192 Path Traversal",
+      "description": "IP 203.0.113.5 appears in 3 separate detections across 2 log files (auth2.log, webserver.log). Coordinated activity spanning multiple attack stages.",
+      "entities": {
+        "ips": [
+          "203.0.113.5"
+        ],
+        "users": [],
+        "hosts": []
+      },
+      "count": 5,
+      "first_seen": "2025-07-03 10:00:09",
+      "last_seen": "2025-07-03 10:00:12",
+      "evidence": [
+        [
+          "webserver.log",
+          12,
+          "203.0.113.5 - - [03/Jul/2025:10:00:12 +0000] \"GET /admin/../../../etc/passwd HTTP/1.1\" 400 0"
+        ],
+        [
+          "auth2.log",
+          6,
+          "Jul  3 10:00:09 server sshd[1235]: Failed password for invalid user test from 203.0.113.5 port 44123 ssh2"
+        ],
+        [
+          "auth2.log",
+          7,
+          "Jul  3 10:00:10 server sshd[1235]: Failed password for invalid user root from 203.0.113.5 port 44124 ssh2"
+        ],
+        [
+          "webserver.log",
+          9,
+          "203.0.113.5 - - [03/Jul/2025:10:00:09 +0000] \"GET /admin HTTP/1.1\" 403 128"
+        ],
+        [
+          "webserver.log",
+          10,
+          "203.0.113.5 - - [03/Jul/2025:10:00:10 +0000] \"GET /admin/ HTTP/1.1\" 403 128"
+        ]
+      ],
+      "mitre": "multiple",
+      "rule_id": ""
+    },
+    {
+      "category": "Cross-File Correlation",
+      "severity": "critical",
+      "title": "Coordinated multi-service attack from 10.0.0.50 (Brute Force Attacks against 2 services)",
+      "description": "IP 10.0.0.50 appears in 2 separate detections across 2 log files (auth2.log, webserver.log). Coordinated activity spanning multiple attack stages.",
+      "entities": {
+        "ips": [
+          "10.0.0.50"
+        ],
+        "users": [],
+        "hosts": []
+      },
+      "count": 4,
+      "first_seen": "2025-07-03 10:00:03",
+      "last_seen": "2025-07-03 10:00:07",
+      "evidence": [
+        [
+          "auth2.log",
+          1,
+          "Jul  3 10:00:03 server sshd[1234]: Failed password for admin from 10.0.0.50 port 52341 ssh2"
+        ],
+        [
+          "auth2.log",
+          2,
+          "Jul  3 10:00:04 server sshd[1234]: Failed password for admin from 10.0.0.50 port 52342 ssh2"
+        ],
+        [
+          "webserver.log",
+          3,
+          "10.0.0.50 - - [03/Jul/2025:10:00:03 +0000] \"POST /login HTTP/1.1\" 401 54"
+        ],
+        [
+          "webserver.log",
+          4,
+          "10.0.0.50 - - [03/Jul/2025:10:00:04 +0000] \"POST /login HTTP/1.1\" 401 54"
+        ]
+      ],
+      "mitre": "multiple",
+      "rule_id": ""
+    }
+  ],
+  "analyst_observations": [
+    {
+      "category": "Analyst Observation",
+      "severity": "note",
+      "title": "'Sensitive sudo command by 'johndoe': /bin/cat /etc/shadow' occurred 8s after a confirmed compromise from 10.0.0.50",
+      "description": "Timeline proximity between a compromise and a subsequent sensitive action by a different identity. This matches the classic post-exploitation sequence (initial access \u2192 credential access), but the logs do not prove the two are connected. Recommend investigating whether the identities are linked.",
+      "entities": {
+        "ips": [],
+        "users": [],
+        "hosts": []
+      },
+      "count": 2,
+      "first_seen": "unknown",
+      "last_seen": "unknown",
+      "evidence": [
+        [
+          "auth2.log",
+          5,
+          "Jul  3 10:00:07 server sshd[1234]: Accepted password for admin from 10.0.0.50 port 52345 ssh2"
+        ],
+        [
+          "auth2.log",
+          9,
+          "Jul  3 10:00:15 server sudo: johndoe : TTY=pts/0 ; PWD=/home/johndoe ; USER=root ; COMMAND=/bin/cat /etc/shadow"
+        ]
+      ],
+      "mitre": "",
+      "rule_id": ""
+    },
+    {
+      "category": "Analyst Observation",
+      "severity": "note",
+      "title": "Session inconsistency: 10.0.0.50:52345 closed '[preauth]' but the same port previously authenticated",
+      "description": "A '[preauth]' close means the connection ended before authentication, yet this exact source IP:port pair produced an accepted login earlier. The line parses cleanly, so it is not flagged as malformed \u2014 but it is semantically contradictory. Possible log artifact, clock/ordering issue, or tampering. Recommend comparing against a second log source.",
+      "entities": {
+        "ips": [
+          "10.0.0.50"
+        ],
+        "users": [
+          "admin"
+        ],
+        "hosts": [
+          "server"
+        ]
+      },
+      "count": 2,
+      "first_seen": "2025-07-03 10:00:07",
+      "last_seen": "2025-07-03 10:00:25",
+      "evidence": [
+        [
+          "auth2.log",
+          5,
+          "Jul  3 10:00:07 server sshd[1234]: Accepted password for admin from 10.0.0.50 port 52345 ssh2"
+        ],
+        [
+          "auth2.log",
+          12,
+          "Jul  3 10:00:25 server sshd[1245]: Connection closed by 10.0.0.50 port 52345 [preauth]"
+        ]
+      ],
+      "mitre": "",
+      "rule_id": ""
+    }
+  ]
+}
