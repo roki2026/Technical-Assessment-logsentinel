@@ -1,0 +1,9 @@
+{"eventTime":"2026-07-14T02:20:00Z","eventName":"ConsoleLogin","sourceIPAddress":"203.0.113.45","userIdentity":{"userName":"admin"},"responseElements":{"ConsoleLogin":"Failure"}}
+{"eventTime":"2026-07-14T02:20:30Z","eventName":"ConsoleLogin","sourceIPAddress":"203.0.113.45","userIdentity":{"userName":"admin"},"responseElements":{"ConsoleLogin":"Failure"}}
+{"eventTime":"2026-07-14T02:21:00Z","eventName":"ConsoleLogin","sourceIPAddress":"203.0.113.45","userIdentity":{"userName":"admin"},"responseElements":{"ConsoleLogin":"Failure"}}
+{"eventTime":"2026-07-14T02:21:30Z","eventName":"ConsoleLogin","sourceIPAddress":"203.0.113.45","userIdentity":{"userName":"admin"},"responseElements":{"ConsoleLogin":"Failure"}}
+{"eventTime":"2026-07-14T02:22:00Z","eventName":"ConsoleLogin","sourceIPAddress":"203.0.113.45","userIdentity":{"userName":"admin"},"responseElements":{"ConsoleLogin":"Failure"}}
+{"eventTime":"2026-07-14T02:30:00Z","eventName":"PutBucketPolicy","sourceIPAddress":"203.0.113.45","userIdentity":{"userName":"admin"},"requestParameters":{"bucketPolicy":{"Statement":[{"Effect":"Allow","Principal":"*","Action":"s3:GetObject"}]}}}
+{"eventTime":"2026-07-14T02:31:00Z","eventName":"StopLogging","sourceIPAddress":"203.0.113.45","userIdentity":{"userName":"admin"}}
+{"eventTime":"2026-07-14T02:32:00Z","eventName":"CreateAccessKey","sourceIPAddress":"203.0.113.45","userIdentity":{"userName":"admin"}}
+{"kind":"Event","verb":"create","requestReceivedTimestamp":"2026-07-14T05:00:00Z","sourceIPs":["10.0.0.88"],"user":{"username":"dev1"},"objectRef":{"resource":"pods","subresource":"exec"},"requestObject":{"spec":{"containers":[{"securityContext":{"privileged":true}}]}}}
