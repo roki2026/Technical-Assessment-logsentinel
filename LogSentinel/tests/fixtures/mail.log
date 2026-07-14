@@ -1,0 +1,2 @@
+Jul 14 06:05:00 mail01 postfix/smtpd[9001]: dmarc=fail dkim=fail phishing attachment blocked: invoice.exe from finance@spoofed.example
+Jul 14 06:06:00 mail01 postfix/smtpd[9002]: suspicious link detected: http://bit.ly/xyz malicious attachment
